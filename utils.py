@@ -9,7 +9,7 @@ def generate_prompt(prompt, histories, ctx=None):
     
     }"""
 
-    convs = f"""Below is a history of instructions that describe tasks, paired with an input that provides further context. Write a response that appropriately completes the request by remembering the conversation history.
+    convs = f"""Di seguito è riportata una cronologia delle istruzioni che descrivono le attività, abbinate a un input che fornisce ulteriore contesto. Scrivi una risposta che completi adeguatamente la richiesta ricordando la cronologia della conversazione.
 {ctx}
 """
 
@@ -22,21 +22,21 @@ def generate_prompt(prompt, histories, ctx=None):
         pattern = re.compile(r'<.*?>')
         history_response = re.sub(pattern, '', history_response)        
 
-        convs = convs + f"""### Instruction:{history_prompt}
+        convs = convs + f"""### Istruzione:{history_prompt}
 
-### Response:{history_response}
+### Risposta:{history_response}
 
 """
 
-    convs = convs + f"""### Instruction:{prompt}
+    convs = convs + f"""### Istruzione:{prompt}
 
-### Response:"""
+### Risposta:"""
 
     print(convs)
     return convs
 
 def post_process(bot_response):
-    bot_response = bot_response.split("### Response:")[-1].strip()
+    bot_response = bot_response.split("### Risposta:")[-1].strip()
     bot_response = bot_response.replace("\n", "<br>")     # .replace(" ", "&nbsp;")
     
     pattern = r"(  )"
